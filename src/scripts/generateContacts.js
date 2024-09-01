@@ -1,21 +1,12 @@
-import { PATH_DB } from '../constants/contacts.js';
-import { createFakeContact } from '../utils/createFakeContact.js';
-import fs from 'fs';
+const createFakeContact = require('../utils/createFakeContact');
+const readContacts = require('../utils/readContacts');
+const writeContacts = require('../utils/writeContacts');
 
-const generateContacts = async (number) => {
-  try {
-    const data = fs.readFileSync(PATH_DB, 'utf-8');
-    const contacts = JSON.parse(data);
+async function generateContacts(count) {
+    const existingContacts = await readContacts();
+    const newContacts = Array.from({ length: count }, () => createFakeContact());
+    const updatedContacts = [...existingContacts, ...newContacts];
+    await writeContacts(updatedContacts);
+}
 
-    for (let i = 0; i < number; i += 1) {
-      const newContact = createFakeContact();
-      contacts.push(newContact);
-    }
-
-    fs.writeFileSync(PATH_DB, JSON.stringify(contacts, null, 2), 'utf-8');
-  } catch (error) {
-    console.error(error.message);
-  }
-};
-
-await generateContacts(5);
+generateContacts(5);  // Тут можна змінити кількість контактів, що генеруються
