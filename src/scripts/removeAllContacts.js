@@ -1,8 +1,8 @@
-const writeContacts = require('../utils/writeContacts');
+import { writeContacts } from '../utils/index.js';
 
-async function removeAllContacts() {
-    await writeContacts([]);
-    console.log('All contacts removed.');
-}
+export const removeAllContacts = async () => {
+  await writeContacts([]);
+  console.log('All contacts have been removed.');
+};
 
 removeAllContacts();

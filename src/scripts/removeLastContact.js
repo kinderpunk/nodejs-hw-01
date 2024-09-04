@@ -1,15 +1,10 @@
-const readContacts = require('../utils/readContacts');
-const writeContacts = require('../utils/writeContacts');
+import { readContacts, writeContacts } from '../utils/index.js';
 
-async function removeLastContact() {
-    const contacts = await readContacts();
-    if (contacts.length > 0) {
-        contacts.pop();
-        await writeContacts(contacts);
-        console.log('Last contact removed.');
-    } else {
-        console.log('No contacts to remove.');
-    }
-}
+export const removeLastContact = async () => {
+  const contacts = await readContacts();
+  contacts.pop();
+  await writeContacts(contacts);
+  console.log('Last contact has been removed.');
+};
 
 removeLastContact();

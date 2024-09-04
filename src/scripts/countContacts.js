@@ -1,9 +1,8 @@
-const readContacts = require('../utils/readContacts');
+import { readContacts } from '../utils/index.js';
 
-async function countContacts() {
-    const contacts = await readContacts();
-    console.log(`Total contacts: ${contacts.length}`);
-    return contacts.length;
-}
+export const countContacts = async () => {
+  const contacts = await readContacts();
+  console.log(`Total contacts: ${contacts.length}`);
+};
 
 countContacts();
